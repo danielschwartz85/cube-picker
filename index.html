@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>קוביות</title>
+  <!-- <link rel="shortcut icon" href=""> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+      .centered {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 40%;
+        margin-top: 20px !important;
+        margin-bottom: 50px !important;
+      }
+      .dice {
+        margin-top: 50px;
+        border: 7px solid coral;
+        text-align: center;
+      }
+      .diceNum {
+        font-size: large;
+      }
+      button {
+        cursor:pointer;
+        background-color: #555555; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        width: 100%;
+      }
+  </style>
+  <style>  
+    /* cool text */
+    h1 {
+        display: inline;
+        position: relative;
+        font: 100px Helvetica, Sans-Serif;
+        letter-spacing: -5px;
+        color: rgba(0,0,255,0.5); 
+    }
+  </style>
+</head>
+<body>
+  <script>
+      window.dices = [
+          [4,5,6,7,8,9],
+          [6,7,8,9]
+      ]
+
+      function rollDice(diceNum) {
+        const button = document.getElementById(`button${diceNum}`);
+        button.textContent = 'בחר';
+        window[`cancel${diceNum}`] = setInterval(() => {
+           const max = window.dices[diceNum - 1].length;
+           const randIndex = getRandomInt(max);
+           const pick = window.dices[diceNum - 1][randIndex];
+           document.getElementById(`num${diceNum}`).innerHTML = pick 
+        }, 50);
+      }
+
+      function getRandomInt(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+
+      function stopDice(diceNum) {
+        const button = document.getElementById(`button${diceNum}`);
+        button.textContent = 'הגרל';
+        const cancelId = window[`cancel${diceNum}`];
+        window[`cancel${diceNum}`] = null;
+        window.clearInterval(cancelId);
+      }
+
+      function toggleDice(diceNum) {
+          if (!!window[`cancel${diceNum}`]) {
+            stopDice(diceNum);
+          } else {
+            rollDice(diceNum);
+          }
+      }
+
+  </script>
+  <span class="centered">
+      <div class="dice">
+        <button id="button1" onclick="toggleDice(1)">הגרל</button>
+        <h1 id="num1">?</h1>
+      </div>
+      <div class="dice">
+        <button id="button2" onclick="toggleDice(2)">הגרל</button>
+        <h1 id="num2">?</h1>
+      </div>
+  </span>
+</html>
