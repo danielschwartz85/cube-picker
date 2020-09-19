@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <title>קוביות</title>
-  <!-- <link rel="shortcut icon" href=""> -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
       .centered {
@@ -33,16 +33,14 @@
         font-size: 20px;
         width: 100%;
       }
-  </style>
-  <style>  
-    /* cool text */
-    h1 {
+
+      h1 {
         display: inline;
         position: relative;
         font: 100px Helvetica, Sans-Serif;
         letter-spacing: -5px;
         color: rgba(0,0,255,0.5); 
-    }
+      }
   </style>
 </head>
 <body>
@@ -59,8 +57,12 @@
            const max = window.dices[diceNum - 1].length;
            const randIndex = getRandomInt(max);
            const pick = window.dices[diceNum - 1][randIndex];
-           document.getElementById(`num${diceNum}`).innerHTML = pick 
+           showDice(diceNum, pick); 
         }, 50);
+      }
+
+      function showDice(diceNum, pick) {
+        document.getElementById(`num${diceNum}`).innerHTML = pick
       }
 
       function getRandomInt(max) {
